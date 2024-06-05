@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+
+    <!-- React JS 라이브러리 임포트문 (어플리케이션을 인터랙티브하게 만들어 줌) -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <!-- React DOM 라이브러리 임포트문 (모든 리액트 엘리먼트들을 HTML Body에 둘 수 있게 해줌) -->
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+    <script>
+        const root = document.getElementById("root"); // 바닐라js로 div 엘리먼트 취해오고
+
+        const span = React.createElement(
+            "span",
+            { id:"sexy-span", style: {color:"red"} },
+            "Hello I'm a Span"
+        );
+        // span 엘리먼트를 만드는데 id 프로퍼티를 부여하고 내용은 Hello이다.
+
+        ReactDOM.render(span, root) // root div 안에 생성한 span을 넣는다.
+        
+        // 바닐라 JS는 html에 엘리먼트를 정의한걸 갖다가 가져와서 조작하는데,
+        // 리액트는 거꾸로다. 모든걸 js에서 시작한다. js에서 엘리먼트를 생성하고 html에 뿌린다.
+
+    </script>
+
+</html>
