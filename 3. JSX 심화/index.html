@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const root = document.getElementById("root");
+
+      function Title() { // fuction으로 정의하는 방식. 컴포넌트의 첫글자는 반드시 대문자로 정해준다.
+          return (
+          <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+              Hello I'm a title
+          </h3>
+          );
+      };
+
+      const Button = () => ( // arrow fuction으로 정의하는 방식. 컴포넌트의 첫글자는 반드시 대문자로 정해준다.
+          <button style={{backgroundColor: "tomato",}} onClick={() => console.log("I'm clicked")}>
+              Click me
+          </button>
+      );
+
+			// JSX는 어플리케이션을 여러가지 작은 요소로 나누어 관리할 수 있게 해준다.
+			// JSX 내부의 주석은 {/* ... */} 형태로 쓴다.
+      const Container = () => (
+          <div>
+						<button>Click me</button> {/* 소문자면 일반 HTML 엘리먼트로 인식됨. 주의! */}
+            <Title /> {/* 이렇게 닫아도 좋고 */}
+            <Button></Button> {/* 이렇게 닫아도 괜찮다 */}
+          </div>
+      )
+
+      ReactDOM.render(<Container />, root);
+
+    </script>
+</html>

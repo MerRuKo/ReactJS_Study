@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+    <!-- JSX문을 createElement문 형식으로 바꿔주는 Babel을 임포트. 이거 안하면 브라우저는 이해 못함 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Babel을 스크립트의 타입으로 넣어주기 -->
+    <script type="text/babel">
+        const root = document.getElementById("root");
+
+        // createElement는 기초적인 방법으로 아무도 안쓴다. 대신 JSX를 쓴다.
+        // JSX는 HTML 태그랑 똑같이 생겨서 가독성이 뛰어나고 이해하기 쉽다.
+
+        const Title = (
+            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+                Hello I'm a title
+            </h3>
+        );
+
+        const Button = (
+            <button style={{backgroundColor: "tomato",}} onClick={() => console.log("I'm clicked")}>
+                Click me
+            </button>
+        );
+
+        // const h3 = React.createElement("h3",
+        // {
+        //     id : "title", // id 부여도 함께 가능
+        //     onMouseEnter: () => console.log("mouse enter") // 이것이 리액트JS의 파워. addEventListener를 완벽히 대체한다.
+        // },
+        // "Hello I'm a Span"
+        // );
+
+        // const btn = React.createElement("button",
+        // {
+        //     onClick: () => console.log("I'm clicked"), // 리액트는 on~ 으로 시작하는걸 이벤트로 감지한다.
+        //     style: {backgroundColor: "tomato"} // style 부여도 함께 가능
+        // },
+        // "Click me"
+        // );
+
+        const container = React.createElement("div", null, [Title, Button]);
+
+        ReactDOM.render(container, root);
+
+    </script>
+</html>

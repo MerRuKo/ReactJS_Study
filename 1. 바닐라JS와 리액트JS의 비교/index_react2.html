@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script>
+        const root = document.getElementById("root");
+
+        const h3 = React.createElement("h3",
+        {
+            id : "title", // id 부여도 함께 가능
+            onMouseEnter: () => console.log("mouse enter") // 이것이 리액트JS의 파워. addEventListener를 완벽히 대체한다.
+        },
+        "Hello I'm a Span"
+        );
+
+        const btn = React.createElement("button",
+        {
+            onClick: () => console.log("I'm clicked"), // 리액트는 on~ 으로 시작하는걸 이벤트로 감지한다.
+            style: {backgroundColor: "tomato"} // style 부여도 함께 가능
+        },
+        "Click me"
+        );
+
+        const container = React.createElement("div", null, [h3, btn]); // 생성한 h3, btn을 div(container)에 넣는다
+
+        ReactDOM.render(container, root) // div(container)를 div(root)에 넣는다
+    </script>
+
+    <!-- HTML 쓰고 getElementById 하고 addEventListener를 할 필요도 없어진다. -->
+
+</html>
