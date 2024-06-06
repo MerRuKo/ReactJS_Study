@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+
+      const root = document.getElementById("root");
+      let counter = 0;
+
+      function counterUp() {
+        counter = counter + 1;
+        render(); // 리렌더링 안하면 당연하게도 counter 값은 오르지만 화면엔 반영이 안됨.
+      }
+      
+      function render() {
+        ReactDOM.render(<Container />, root);
+      }
+      
+      const Container = () => ( // 다시 말하지만 const지만 이렇게 쓰면 function이나 마찬가지다.
+        <div>
+          <h3>Total Clicks : {counter}</h3>
+          <button onClick={counterUp}>Click me</button>
+        </div>
+      )
+
+      // function Container() { // 다시 말하지만 위에 말고 이렇게 써도 된다.
+      //   return (
+      //     <div>
+      //       <h3>Total Clicks : {counter}</h3>
+      //       <button onClick={counterUp}>Click me</button>
+      //     </div>
+      //   );
+      // }
+
+      render();
+
+    </script>
+
+</html>
