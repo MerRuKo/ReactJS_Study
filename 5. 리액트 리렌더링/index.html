@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+
+      const root = document.getElementById("root");
+
+      function App() {
+
+        // ※구조 분해 할당
+        // const x = [1,2,3]
+        // const [a,b,c] = x;
+        // => a는 1이 되고 b는 2가 되고 c는 3이 된다.
+
+        const [counter, setCounter] = React.useState(0); // 구조 분해 할당을 써서 counter와 setCounter 변수 정의.
+        // React의 useState훅은 배열을 리턴하는데, 첫번째 요소는 현재상태값 & 두번째 요소는 상태값을 갱신하는 갖가지 함수들.
+        // useState 인수에 0이 아니라 5를 주면 현재상태값은 5로 시작한다.
+        // 앞에는 "변수명" 뒤에는 "set변수명" 으로 정하는게 관례이다.
+
+        const onClick = () => {
+          setCounter(counter + 1); // 리렌더링도 해줌
+        };
+
+        // 1. setCounter 함수가 호출되어 상태가 변경됩니다.
+        // 2. React는 상태 변경을 감지합니다.
+        // 3. 변경된 상태를 반영하기 위해 컴포넌트를 다시 렌더링합니다.
+        // 4. 컴포넌트의 함수 (App)가 다시 실행됩니다.
+        // 5. 새로운 상태 값을 기반으로 JSX가 다시 생성되고 브라우저에 반영됩니다.
+
+        return (
+          <div>
+            <h3>Total Clicks : {counter}</h3>
+            <button onClick={onClick}>Click me</button>
+          </div>
+        );
+        
+        // 이와 같이 리액트의 컴포넌트를 만드는 함수를 쓴 결과 :
+        // ⇒ 겟엘리먼트,이벤트리스너 같은 절차는 물론 필요없고, 값 갱신 후 리렌더링마저도 원큐에 해준다. 
+
+      }
+
+      ReactDOM.render(<App />, root);
+
+    </script>
+
+</html>
