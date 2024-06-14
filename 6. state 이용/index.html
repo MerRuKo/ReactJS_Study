@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      
+      function App() {
+
+        const [minutes, setMinutes] = React.useState(0); // state에 저장된 minutes state를 부릴 수 있는 setMinutes
+
+        const onChange = (event) => {
+          setMinutes(event.target.value); // 자바스크립트랑 똑같이 event 감지해서 event 오브젝트 속 value 값을 가져옴
+        }
+
+        const reset = (event) => {
+          setMinutes(0);
+        }
+
+        return (
+          <div>
+            <h1 className="hi">Super Converter</h1>
+            <div>
+              <label htmlFor="minutes">Minutes</label>
+              <input value={minutes} id="minutes" placeholder="Minutes" type="number" onChange={onChange} />
+              {/* 리렌더링 계속 받기위해 value={minutes} 이 필요하다. */}
+            </div>
+            <div>
+              <label htmlFor="hours">Hours</label>
+              <input value={Math.round(minutes / 60)} id="hours" placeholder="Hours" type="number" disabled />
+              {/* disabled 없어도 input에 뭐라 입력해도 value 값이 고정되기 때문에 입력 안된다. */}
+            </div>
+            <button onClick={reset}>Reset</button>
+          </div>
+          // JSX에서는 class,for 프로퍼티 쓰면 안된다. class는 js에, for는 html에 이미 선점되어있기 때문. (className / htmlFor 로 사용)
+          // for : 이 속성을 사용하면, 사용자가 <label>을 클릭할 때 해당 폼 컨트롤이 자동으로 포커스 되거나 선택됩니다.
+        );
+            
+      }
+      
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+
+    </script>
+
+</html>
