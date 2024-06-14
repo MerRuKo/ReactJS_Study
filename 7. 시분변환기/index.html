@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      
+      function App() {
+
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+
+        const onChange = (event) => { // 바닐라js에서 썼었던, 이벤트가 일어날 당시의 오브젝트 정보를 인수로 받기.
+          setAmount(event.target.value); // target(input입력상자)에 입력이 일어날때마다 amount의 state에 값을 반영.
+        }
+
+        const reset = (event) => {
+          setAmount(0); // reset 버튼 누르면 총 초값이 0으로 바뀌게 하기.
+        }
+
+        const onInvert = () => {
+          reset();
+          // onInvert 함수는 총 초값을 리셋해주고,
+          setInverted((current) => !current);
+          // setInverted 함수로 현재 값(inverted의 current값)의 반대 값을 리턴한다.
+
+          // current는 useState 훅이 관리하는 상태 값의 현재 값을 의미하며,
+          // (꼭 변수명을 current로 안 정해도 됨 prevState로 하등가..)
+          // 이는 setInverted 함수에 의해 콜백 함수의 인자로 전달됩니다. 
+          // 이를 통해 현재 상태 값을 토대로 새로운 상태 값을 계산할 수 있습니다.
+        }
+
+        return (
+          <div>
+            <h1 className="hi">Super Converter</h1>
+            <div>
+              <label htmlFor="minutes">Minutes</label>
+              <input
+                value={inverted ? amount*60 : amount}
+                // Minutes 입력이 disabled일때 Minutes의 value는 변환값(시간->초)을 나타낸다는 삼항연산자
+                id="minutes"
+                placeholder="Minutes"
+                type="number"
+                onChange={onChange} // input입력상자에 값이 적힐때마다 전역변수 amount의 state를 갱신한다.
+                disabled={inverted} // 만약 inverted가 true라면 disabled을 활성화한다는 조건식.
+                // disabled={inverted === true} 이렇게도 가능
+              />
+            </div>
+            <div>
+              <label htmlFor="hours">Hours</label>
+              <input
+                value={!inverted ? Math.round(amount / 60) : amount}
+                // Hours 입력이 disabled일때 Hours의 value는 변환값(초->시간)을 나타낸다는 삼항연산자
+                id="hours"
+                placeholder="Hours"
+                type="number"
+                onChange={onChange} // input입력상자에 값이 적힐때마다 전역변수 amount의 state를 갱신한다.
+                disabled={!inverted} // 만약 inverted가 false라면 disabled을 활성화한다는 조건식.
+                // disabled={inverted === false} 이렇게도 가능
+              />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button> {/* inverted 분기에 따른 버튼명 분기 */}
+          </div>
+        );
+            
+      }
+      
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+
+    </script>
+
+</html>
