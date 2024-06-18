@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+      function MinutesToHours() {
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const onChange = (event) => {
+          setAmount(event.target.value);
+        }
+        const reset = () => {
+          setAmount(0);
+        }
+        const onInvert = () => {
+          reset();
+          setInverted((current) => !current);
+        }
+        return (
+          <div>
+            <div>
+              <label htmlFor="minutes">Minutes</label>
+              <input
+                value={inverted ? amount*60 : amount}
+                id="minutes"
+                placeholder="Minutes"
+                type="number"
+                onChange={onChange}
+                disabled={inverted}
+              />
+            </div>
+            <div>
+              <label htmlFor="hours">Hours</label>
+              <input
+                value={!inverted ? Math.round(amount / 60) : amount}
+                id="hours"
+                placeholder="Hours"
+                type="number"
+                onChange={onChange}
+                disabled={!inverted}
+              />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+          </div>
+        );
+      }
+      
+      function KmToMiles() {
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const onChange = (event) => {
+          setAmount(event.target.value);
+        }
+        const reset = () => {
+          setAmount(0);
+        }
+        const onInvert = () => {
+          reset();
+          setInverted((current) => !current);
+        }
+        return (
+          <div>
+            <div>
+              <label htmlFor="km">Km</label>
+              <input
+                value={inverted ? amount*1.6 : amount}
+                id="km"
+                placeholder="Km"
+                type="number"
+                onChange={onChange}
+                disabled={inverted}
+              />
+            </div>
+            <div>
+              <label htmlFor="miles">Miles</label>
+              <input
+                value={!inverted ? Math.round(amount / 1.6) : amount}
+                id="miles"
+                placeholder="Miles"
+                type="number"
+                onChange={onChange}
+                disabled={!inverted}
+              />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+          </div>
+        );
+      }
+
+      function App() {
+        const [index, setIndex] = React.useState("xx");
+        const onChange = (event) => {
+          setIndex(event.target.value);
+        }
+        return (
+          <div>
+            <h1>Super Converter</h1>
+
+            <select value={index} onChange={onChange}>
+              {/* value 셀렉트박스 자체에도 value 값을 부여해서 셀렉트박스 조작마다 변경시킨다 */}
+              {/* onChange 셀렉트박스 조작시 변경을 리스닝 할 수 있도록 */}
+              <option value="xx">Selet your units</option>
+              <option value="0">Minutes To Hours</option> {/* value를 줌으로써 event.target.value에 값이 세팅 되도록 */}
+              <option value="1">Km To Miles</option> {/* value를 줌으로써 event.target.value에 값이 세팅 되도록 */}
+            </select>
+            <hr/>
+
+            {/* 그냥 쓰면 text지만 {} 안에 쓰면 자바스크립트로 인식한다 */}
+            {index === "xx" ? "Please select your units" : null} {/* 미선택시 텍스트 찍기 */}
+            {index === "0" ? <MinutesToHours /> : null} {/* 삼항연산자 조건식을 이용한 컴포넌트 안에 또 다른 컴포넌트 렌더링 */}
+            {index === "1" ? <KmToMiles /> : null} {/* 삼항연산자 조건식을 이용한 컴포넌트 안에 또 다른 컴포넌트 렌더링 */}
+
+          </div>
+        );
+      }
+      
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+
+    </script>
+
+</html>
