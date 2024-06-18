@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+      function Btn(props) { // 2. 바나나&빅이 담긴 오브젝트(props)가 이곳으로 온다 (두번째 인수나 다른 인수는 없다)
+   // function Btn({ banana, big })    ※숏컷 : 리액트는 무조건 오브젝트 올 거 아니까 이렇게 props 표기를 생략 할 수도 있다. 
+        return (
+          <button
+            style={{
+              backgroundColor: "tomato",
+              color: "white",
+              padding: "10px 20px",
+              border: 0,
+              borderRadius: 10,
+              fontSize : props.big ? 25 : 16 // 넘어 온 props 속의 빅 정보를 꺼내서 삼항연산자로 버튼마다 fontSize를 다르게 줬다
+           /* fontSize : big ? 18 : 16    ※숏컷 : props 표기 생략했다면 그냥 빅만 써도 작동한다. */
+            }}
+          >
+          {props.banana} {/* 3. 넘어 온 props 속의 바나나 정보를 꺼내서 버튼마다 텍스트를 다르게 줬다 */}
+      {/* {banana}    ※숏컷 : props 표기 생략했다면 그냥 바나나만 써도 작동한다. */}
+          </button>
+        )
+      }
+
+      function App() {
+        return (
+          <div>
+            <Btn banana="Save Changes" big={true} /> {/* 1. 리액트는 렌더링할때 프로퍼티(바나나&빅)를 오브젝트에 담아서 첫번째 함수 인자로 보내준다 */}
+            <Btn banana="Continue" big={false} /> {/* 1. 리액트는 렌더링할때 프로퍼티(바나나&빅)를 오브젝트에 담아서 첫번째 함수 인자로 보내준다 */}
+          </div>
+        );
+      }
+      
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+
+    </script>
+
+</html>
