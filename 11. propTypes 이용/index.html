@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <!-- 프로덕션 빌드로 임포트하면 콘솔창에 에러 안뜬다.
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    -->
+    <!-- 개발 빌드로 임포트하니까 콘솔창에 에러 뜬다. -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+    <!-- 바벨 스크립트 임포트 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- 프롭타입스 사용할 수 있는 스크립트 임포트 -->
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
+    <script type="text/babel">
+
+      function Btn( {text, onClick, fontSize = 55} ) { /* 원래 바닐라js도 있는 기능인데 이런식으로 인수의 초기값 설정도 가능하다 */
+        return (
+          <button
+            onClick = {onClick}
+            style={{
+              backgroundColor: "tomato",
+              color: "white",
+              padding: "10px 20px",
+              border: 0,
+              borderRadius: 10,
+              fontSize: fontSize,
+            }}
+          >
+          {text}
+          </button>
+        )
+      }
+
+      // propTypes는 prop들의 자료형을 정해줄 수 있다. 그것에 벗어나는 값이 전달되면 콘솔창에 에러를 출력해준다. (페이지 자체는 잘 뜸)
+      Btn.propTypes = {
+        text: PropTypes.string.isRequired, // isRequired를 쓰면 Btn에 text prop이 없을시 콘솔창에 에러 출력 해줌.
+        fontSize: PropTypes.number,
+      };
+
+      function App() {
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue("Revert Changes");
+        return (  
+          <div>
+            <Btn text={value} fontSize={18} onClick={changeValue} />
+            <Btn text={14} /> { /* text 속성을 propTypes에서 string으로 정의했는데 넘버를 보내니 콘솔창에 에러 뜸. */ }
+          </div>
+        );
+      }
+      
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+
+    </script>
+
+</html>
