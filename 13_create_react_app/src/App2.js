@@ -15,7 +15,7 @@ function Hello() {
   function hiFn() {
     console.log("Created :)");
     return byeFn; // Cleanup Function
-  }
+  } 
   function byeFn() {
     console.log("Destroyed :(");
   }
@@ -37,7 +37,8 @@ function Hello() {
 
 function App2() {
   const [showing, setShowing] = useState(false);
-  const Onclick = () => setShowing( prev => !prev )
+  // 어려운 버전 코드
+  const Onclick = () => setShowing( prev => !prev );
   return (
     <div style={{marginTop: 50}}>
       {showing ? <Hello /> : null }
@@ -46,5 +47,12 @@ function App2() {
     </div>
   );
 }
+
+// 쉬운 버전 코드
+// function Onclick() {
+//   setShowing(function(prev) {
+//       return !prev;
+//   });
+// }
 
 export default App2;
